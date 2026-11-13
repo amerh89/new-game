@@ -83,6 +83,16 @@ export function tryMove(fen: string, input: MoveInput): ReplayedMove | null {
   }
 }
 
+/** Tries a move written in SAN (e.g. "Nf3"). Returns null when it is illegal. */
+export function trySan(fen: string, san: string): ReplayedMove | null {
+  const chess = new Chess(fen);
+  try {
+    return toReplayedMove(chess.move(san));
+  } catch {
+    return null;
+  }
+}
+
 /** True when moving this piece to this square is a pawn promotion. */
 export function isPromotion(fen: string, from: string, to: string): boolean {
   const chess = new Chess(fen);

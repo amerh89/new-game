@@ -12,6 +12,12 @@ export const QUIZ_TYPES: { type: QuizType; title: string; description: string }[
   { type: "side", title: "Which side benefits?", description: "Judge who comes out on top." },
 ];
 
+/** Display names, including the timed test. */
+export const QUIZ_TITLES: Record<string, string> = {
+  ...Object.fromEntries(QUIZ_TYPES.map((q) => [q.type, q.title])),
+  test: "Timed test",
+};
+
 export interface QuizQuestion {
   /** Unique within a quiz, used to avoid repeats. */
   id: string;

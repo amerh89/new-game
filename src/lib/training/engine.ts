@@ -35,11 +35,6 @@ export interface TrainCard {
   lead?: { fen: string; san: string; from: string; to: string };
 }
 
-function isUserPly(line: TrainLine, ply: number, firstMover: "w" | "b"): boolean {
-  const moverIsWhite = (firstMover === "w") === (ply % 2 === 0);
-  return (line.side === "white") === moverIsWhite;
-}
-
 /** Every position in the line where it is your turn becomes a card. */
 export function buildCards(line: TrainLine): TrainCard[] {
   const moves = replaySan(line.sans, line.startFen ?? START_FEN);

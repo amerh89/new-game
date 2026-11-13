@@ -1,26 +1,156 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f3f5f8;
+  --surface: #ffffff;
+  --surface-2: #edf0f4;
+  --border: #dde2e9;
+  --foreground: #0f1722;
+  --muted: #5b6676;
+  --primary: #059669;
+  --primary-strong: #047857;
+  --primary-foreground: #ffffff;
+  --accent: #d97706;
+  --danger: #dc2626;
+  --info: #2563eb;
+  --glow: rgba(5, 150, 105, 0.14);
+  --shadow: 0 1px 2px rgba(15, 23, 34, 0.05), 0 8px 24px -12px rgba(15, 23, 34, 0.18);
+  color-scheme: light;
+}
+
+.dark {
+  --background: #090d13;
+  --surface: #111722;
+  --surface-2: #19212e;
+  --border: #222c3b;
+  --foreground: #e9eef5;
+  --muted: #8c98aa;
+  --primary: #34d399;
+  --primary-strong: #10b981;
+  --primary-foreground: #03241a;
+  --accent: #fbbf24;
+  --danger: #f87171;
+  --info: #60a5fa;
+  --glow: rgba(52, 211, 153, 0.16);
+  --shadow: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 12px 32px -16px rgba(0, 0, 0, 0.7);
+  color-scheme: dark;
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-border: var(--border);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-muted: var(--muted);
+  --color-primary: var(--primary);
+  --color-primary-strong: var(--primary-strong);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-accent: var(--accent);
+  --color-danger: var(--danger);
+  --color-info: var(--info);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  --shadow-card: var(--shadow);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    border-color: var(--border);
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  html {
+    height: 100%;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    background: var(--background);
+  }
+
+  body {
+    min-height: 100%;
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    overscroll-behavior-y: none;
+    touch-action: manipulation;
+  }
+
+  /* 16px inputs stop iOS Safari from zooming in when a field is focused. */
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+
+  button,
+  a {
+    touch-action: manipulation;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
+    letter-spacing: -0.015em;
+  }
+
+  p {
+    text-wrap: pretty;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@utility pt-safe {
+  padding-top: env(safe-area-inset-top, 0px);
+}
+
+@utility pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+@utility px-safe {
+  padding-left: max(1rem, env(safe-area-inset-left, 0px));
+  padding-right: max(1rem, env(safe-area-inset-right, 0px));
+}
+
+/* Lets a board break out of the page padding so it is edge-to-edge on phones. */
+@utility bleed {
+  margin-left: calc(-1 * max(1rem, env(safe-area-inset-left, 0px)));
+  margin-right: calc(-1 * max(1rem, env(safe-area-inset-right, 0px)));
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.app-backdrop {
+  background:
+    radial-gradient(900px 420px at 50% -160px, var(--glow), transparent 70%),
+    var(--background);
+}
+
+.card-gradient {
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--primary) 16%, transparent), transparent 55%),
+    var(--surface);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
