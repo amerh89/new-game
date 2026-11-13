@@ -132,8 +132,10 @@ export function LearnSession({
     [run, finish, acceptAnyMate],
   );
 
+  /** Practice round: same line again, but with no hints and no arrows. */
   const restart = () => {
     finished.current = false;
+    setHints(false);
     setRun(startRun(line));
     setShowAnswer(false);
     setAltFinish(null);
@@ -202,18 +204,23 @@ export function LearnSession({
                           schedule ? " The ones you missed will come back for review sooner." : ""
                         }`}
                 </p>
+                {hints && (
+                  <p className="mt-3 text-sm font-medium">
+                    Now try it from memory — no hints and no arrows. If you slip, you will be shown the right move.
+                  </p>
+                )}
                 <div className="mt-5 flex flex-col gap-2">
+                  <Button variant={hints ? "default" : "secondary"} onClick={restart} data-testid="practise-again">
+                    <RotateCcw className="size-4" /> {hints ? "Practise without hints" : "Practise again"}
+                  </Button>
                   {nextHref && (
-                    <Button asChild>
+                    <Button asChild variant={hints ? "secondary" : "default"}>
                       <Link href={nextHref}>
                         <span className="truncate">{nextLabel ?? "Next line"}</span>
                         <ChevronRight className="size-5 shrink-0" />
                       </Link>
                     </Button>
                   )}
-                  <Button variant="secondary" onClick={restart}>
-                    <RotateCcw className="size-4" /> Practise again
-                  </Button>
                   <Button asChild variant="ghost">
                     <Link href={closeHref}>{doneLabel}</Link>
                   </Button>
