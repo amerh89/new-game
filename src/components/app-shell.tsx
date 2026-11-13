@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-import { TabBar } from "@/components/tab-bar";
+import { isFocusRoute, TabBar } from "@/components/tab-bar";
 import { SyncManager } from "@/components/sync-manager";
 import { useSettings } from "@/store/settings";
 import { useProgress } from "@/store/progress";
@@ -54,7 +54,13 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="app-backdrop min-h-dvh">
       <div className="pt-safe">
-        <main className="mx-auto w-full max-w-5xl px-safe pb-[calc(5.5rem+env(safe-area-inset-bottom,0px))]">
+        <main
+          className={
+            isFocusRoute(pathname)
+              ? "mx-auto w-full max-w-5xl px-safe pb-[calc(1.5rem+env(safe-area-inset-bottom,0px))]"
+              : "mx-auto w-full max-w-5xl px-safe pb-[calc(5.5rem+env(safe-area-inset-bottom,0px))]"
+          }
+        >
           {ready ? (
             <motion.div
               key={pathname}

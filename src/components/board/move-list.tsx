@@ -51,7 +51,7 @@ export function MoveList({ sans, ply, onSelect, startPly = 0, className }: MoveL
               onClick={() => onSelect?.(i + 1)}
               disabled={!onSelect}
               className={cn(
-                "min-h-11 min-w-10 rounded-lg px-2 text-[15px] font-semibold transition-colors",
+                "min-h-11 min-w-11 rounded-lg px-2 text-[15px] font-semibold transition-colors",
                 active ? "bg-primary text-primary-foreground" : "text-foreground active:bg-surface-2",
                 i >= ply && !active && "text-muted",
               )}

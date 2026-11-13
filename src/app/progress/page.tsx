@@ -155,12 +155,11 @@ export default function ProgressPage() {
       <section>
         <h2 className="mb-2 text-sm font-semibold uppercase tracking-wide text-muted">Accuracy by opening</h2>
         {byOpening.length === 0 ? (
-          <Card className="p-5 text-center text-sm text-muted">
-            No training yet.{" "}
-            <Link href="/train" className="font-semibold text-primary">
-              Learn your first line
-            </Link>{" "}
-            and your accuracy will show up here.
+          <Card className="flex flex-col items-center gap-3 p-5 text-center text-sm text-muted">
+            <p>No training yet. Your accuracy will show up here once you have learned a line.</p>
+            <Button asChild variant="secondary" size="sm">
+              <Link href="/train">Learn your first line</Link>
+            </Button>
           </Card>
         ) : (
           <Card className="flex flex-col gap-4 p-4">
@@ -229,12 +228,11 @@ export default function ProgressPage() {
       <section>
         <h2 className="mb-2 text-sm font-semibold uppercase tracking-wide text-muted">Quiz history</h2>
         {quizHistory.length === 0 ? (
-          <Card className="p-5 text-center text-sm text-muted">
-            No quizzes yet.{" "}
-            <Link href="/quiz" className="font-semibold text-primary">
-              Take one
-            </Link>{" "}
-            to see your results here.
+          <Card className="flex flex-col items-center gap-3 p-5 text-center text-sm text-muted">
+            <p>No quizzes yet. Your results will be listed here.</p>
+            <Button asChild variant="secondary" size="sm">
+              <Link href="/quiz">Take a quiz</Link>
+            </Button>
           </Card>
         ) : (
           <ul className="overflow-hidden rounded-2xl border border-border bg-surface">

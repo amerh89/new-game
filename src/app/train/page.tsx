@@ -116,13 +116,12 @@ export default function TrainPage() {
         )}
         <div className="mt-4 flex flex-col gap-4">
           {entries.length === 0 && (
-            <p className="text-sm text-muted">
-              Your repertoire is empty.{" "}
-              <Link href="/repertoire" className="font-semibold text-primary">
-                Add an opening
-              </Link>{" "}
-              to start learning.
-            </p>
+            <div className="flex flex-col items-start gap-2 text-sm text-muted">
+              <p>Your repertoire is empty. Add an opening to start learning.</p>
+              <Button asChild variant="secondary" size="sm">
+                <Link href="/repertoire">Add an opening</Link>
+              </Button>
+            </div>
           )}
           {entries.map((entry) => (
             <div key={entry.id}>

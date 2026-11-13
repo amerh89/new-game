@@ -18,8 +18,16 @@ function isActive(pathname: string, match: string[]) {
   return match.some((m) => (m === "/" ? pathname === "/" : pathname === m || pathname.startsWith(`${m}/`)));
 }
 
+/** Focused screens (a board plus controls) hide the tab bar to give the board more room. */
+const FOCUS_ROUTES = ["/explore", "/train/session", "/quiz/play", "/mates/trap", "/mates/pattern", "/mates/puzzles"];
+
+export function isFocusRoute(pathname: string) {
+  return FOCUS_ROUTES.includes(pathname.replace(/\/$/, ""));
+}
+
 export function TabBar() {
   const pathname = usePathname();
+  if (isFocusRoute(pathname)) return null;
   return (
     <nav
       aria-label="Main"

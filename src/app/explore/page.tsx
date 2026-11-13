@@ -96,24 +96,6 @@ function CuratedExplorer({ opening, initialLine }: { opening: CuratedOpening; in
         }
       />
 
-      <div className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4" role="tablist" aria-label="Lines">
-        {lines.map((l, i) => (
-          <button
-            key={l.id}
-            type="button"
-            role="tab"
-            aria-selected={i === lineIndex}
-            onClick={() => setLineIndex(i)}
-            className={cn(
-              "h-11 shrink-0 rounded-full border px-4 text-sm font-semibold transition-colors",
-              i === lineIndex ? "border-primary bg-primary/15 text-primary" : "border-border bg-surface text-muted",
-            )}
-          >
-            {l.isMain ? "Main line" : l.name}
-          </button>
-        ))}
-      </div>
-
       <BoardLayout
         board={
           <SwipeArea onSwipeLeft={() => setPly(ply + 1)} onSwipeRight={() => setPly(ply - 1)}>
@@ -128,6 +110,23 @@ function CuratedExplorer({ opening, initialLine }: { opening: CuratedOpening; in
       >
         <MoveList sans={line.sans} ply={ply} onSelect={setPly} />
         <BoardNav ply={ply} total={viewer.total} onChange={setPly} />
+        <div className="no-scrollbar -mx-4 flex gap-2 overflow-x-auto px-4 lg:mx-0 lg:flex-wrap lg:px-0" role="tablist" aria-label="Lines">
+          {lines.map((l, i) => (
+            <button
+              key={l.id}
+              type="button"
+              role="tab"
+              aria-selected={i === lineIndex}
+              onClick={() => setLineIndex(i)}
+              className={cn(
+                "h-11 shrink-0 rounded-full border px-4 text-sm font-semibold transition-colors",
+                i === lineIndex ? "border-primary bg-primary/15 text-primary" : "border-border bg-surface text-muted",
+              )}
+            >
+              {l.isMain ? "Main line" : l.name}
+            </button>
+          ))}
+        </div>
 
         <Card className="min-h-[104px] p-4" aria-live="polite">
           <AnimatePresence mode="wait">
